@@ -9,11 +9,8 @@ class Catapulte : public Unite
 	public :
 	Catapulte() : Unite(20, 12, 6, 4) {}
 	~Catapulte() {}
-	void affiche() const {
-		std::cout<<"Catapulte"<<std::endl;
-	}
-	
-	
+	void attaquer();
+
 };
 
 #endif

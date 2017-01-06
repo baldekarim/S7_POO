@@ -5,7 +5,7 @@
 
 class SuperSoldat : public Unite
 {
-	
+	void attaquer();
 };
 
 #endif

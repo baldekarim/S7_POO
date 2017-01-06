@@ -14,7 +14,7 @@ private:
 protected:
 	// Constructeur/destructeur du singleton
 	Singleton () {}
-	~Singleton () { std::cout << "Destruction du singleton." << std::endl; }
+	~Singleton () { std::cout << "Destruction du singleton : jeu."<<std::endl; }
 	
 public:
 	
@@ -22,7 +22,7 @@ public:
 	{
 		if (singleton == NULL)
 		{
-			std::cout << "Creation du singleton." << std::endl;
+			std::cout << "Creation du singleton : jeu."<<std::endl;
 			singleton = new T;
 		}
 		return (static_cast<T*> (singleton));

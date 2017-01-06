@@ -10,9 +10,8 @@ class Fantassin : public Unite
 	public :
 	Fantassin() : Unite(10, 10, 4, 1) {}
 	~Fantassin() {}
-	void affiche() const {
-		std::cout<<"Fantassin"<<std::endl;
-	}
+	void attaquer();
+
 };
 
 #endif

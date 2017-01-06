@@ -2,7 +2,7 @@
 #ifndef Case_hpp
 #define Case_hpp
 #include <iostream>
-#include "Unite.hpp"
+//#include "Unite.hpp"
 
 class Case
 {
@@ -10,16 +10,16 @@ class Case
 	
 	int numero;
 	bool occupe;
-	Unite *sonUnite;
+	//Unite *sonUnite;
 	
 	public :
 	
 	Case() {
-		sonUnite = NULL;
-	}
+		//sonUnite = NULL;
+	} 
 	Case(int n) : numero(n) {
 		occupe = false;
-		sonUnite = NULL;
+		//sonUnite = NULL;
 	}
 	~Case(){};
 	void afficher(std::ostream &flux) const;
@@ -28,12 +28,12 @@ class Case
 	void setOccupe(bool o) {
 		occupe = o;
 	}
-	Unite getUnite() const {
-		return *sonUnite;
+	/*Unite getUnite() const {
+		//return sonUnite;
 	}
-	void setUnite(Unite u) {
-		sonUnite = &u;
-	}
+	void setUnite(Unite *u) {
+		sonUnite = u;
+	}*/
 	
 };
 

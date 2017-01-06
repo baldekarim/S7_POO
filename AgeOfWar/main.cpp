@@ -1,33 +1,37 @@
 
 #include <iostream>
-#include "AireJeu.hpp"
-#include "Joueur.hpp"
+#include "Jeu.hpp"
 
 using namespace std;
 
 int main(int argc, const char * argv[]) {
+
+	/*
+	cout<<"Test u1 ?= u1 ";
+	if(u1==u1) cout<<"OK"<<endl;
+	else cout<<"KO"<<endl;
+	
+	cout<<"Test u1 ?= u2 ";
+	if(u1==u2) cout<<"OK"<<endl;
+	else cout<<"KO"<<endl;
+	
+	cout<<"Test u1 ?= u3 ";
+	if(u1==u3) cout<<"OK"<<endl;
+	else cout<<"KO"<<endl;
+	
+	cout<<"Test u2 ?= u3 ";
+	if(u2==u3) cout<<"OK"<<endl;
+	else cout<<"KO"<<endl;
+	*/
 	
 	// pointeurs sur l'unique instance de la classe UniqueObject
-	// AireJeu *obj1, *obj2;
-	
-	// initialisation des pointeurs
-	// obj1 = AireJeu::getInstance ();
-	// obj2 = AireJeu::getInstance ();
-	
-	// affectation de la valeur 15 à l'objet pointé par obj1
-	//obj1->setCase(1, Case(1, true));
-	
-	// affichage de _value
-	// cout << "obj1 = " << obj1->getCase(1).getNumero() <<endl;
-	// cout << obj1->getCase(1).operator<<(cout)<<endl;
-	
+	Jeu *jeu;
+	// initialisation du pointeur
+	jeu = Jeu::getInstance ();
+	// lancement du jeu
+	jeu->lancerJeu();
 	// destruction de l'instance unique
-	//obj1->kill ();
-	Joueur joueurA = Joueur("JoueurA", Base(0));
-	joueurA.recruterUnite();
-	joueurA.augmenterSolde(25);
-	joueurA.recruterUnite();
-	joueurA.recruterUnite();
+	jeu->kill();
 	
 	return 0;
 }

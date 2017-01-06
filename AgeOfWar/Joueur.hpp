@@ -14,22 +14,22 @@ class Joueur
 	
 	std::string nom;
 	int solde;
-	Base saBase;
-	std::vector<Unite> sesUnites;
+	Base *saBase;
+	std::vector<Unite*> sesUnites;
 	
 	public :
 	
-	Joueur(std::string n, const Base b) : nom(n), saBase(b) {
-		solde = 0;
-		std::cout<<"Bienvenu "<<nom<<" au jeu Age of War"<<std::endl;
+	Joueur(std::string n, const Base b);
+	~Joueur() {
+		delete saBase;
 	}
-	~Joueur() {}
 	std::string getNom() const { return nom; }
-	Base getBase() const { return saBase; }
+	Base getBase() const { return *saBase; }
 	void augmenterSolde(int s) {
 		solde += s;
 		std::cout<<"Le nouveau solde de "<<nom<<" est : "<<solde<<std::endl;
 	}
+	std::vector<Unite*> getUnites() const { return sesUnites; }
 	void recruterUnite();
 	void resolutionActions();
 	void supprimerUnite(Unite);
