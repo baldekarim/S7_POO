@@ -5,7 +5,14 @@
 
 class SuperSoldat : public Unite
 {
+	
 	void attaquer();
+	
+	std::string getClasse() const
+	{
+		return "SuperSoldat";
+	}
+
 };
 
 #endif

@@ -1,45 +1,71 @@
 
 #include "Unite.hpp"
-#include "Jeu.hpp"
 
 using namespace std;
 
-/*bool Unite::estEgal(Unite const& u2) const
+bool Unite::init = false;
+
+Unite::Unite(int p, int v, int a, int por) : prix(p), ptsVie(v), ptsAttaque(a), portee(por)
 {
-	if(prix == u2.prix && portee == u2.portee && ptsAttaque == u2.ptsAttaque && ptsVie == u2.ptsVie)
-		return true;
-	else
-		return false;
-}*/
+	if(!init)
+	{
+		init = true;
+		creerMap();
+	}
+}
+
+ // GESTION DES ACTIONS POSSIBLES
+
+bool Unite::action1()
+{
+	attaquer();
+	return true; //Pour l'instant mais il faudra renvoyer vrai si l'unité à pu attaquer
+}
+
+void Unite::action2()
+{
+	avancer();
+}
+
+void Unite::action3()
+{
+	
+}
 
 void Unite::avancer()
 {
-	/*if(Jeu::avancerUnite(numeroCase + 1, this)) {
-		cout<<"Avancement d'une case"<<endl;
-	}*/
-	/* Si case suivante vide alors avancer.
-	//Case c(15);
-	cout << c.getNumero()<<endl;
- 
-	
-	//Si case vide on peut avancer
-	//int n = saCase->getNumero();
-	
-	if(saCase->getOccupe()){
-		cout<<"Vous allez avancer\n";
-	}else{
-		cout <<"Vous ne pouvez pas avancer \n";
-	}*/
+	int pasAvancement;
+	if(sensDeplacement == 'd') pasAvancement = 1;
+	else pasAvancement = -1;
+	if(getUnite(numeroCase + pasAvancement) != NULL)
+	{
+		cout << "La case suivante est occupée : Votre unité ne peut pas avancer" << endl;
+	}
+	else
+	{
+		setUnite(numeroCase, NULL);
+		numeroCase += pasAvancement;
+		setUnite(numeroCase, this);
+		cout << "Votre unité vient d'avancer d'une case \t Nouvelle postion : Case "<<numeroCase<< endl;
+	}
 }
 
-void Unite::action1() {
-	
+Unite::mapT Unite::creerMap()
+{
+	Unite::mapT m;
+	for(int i = 0; i < 12; i++) m[i] = NULL;
+	return m;
 }
 
-void Unite::action2() {
-	
+Unite::mapT Unite::plateau = creerMap();
+
+Unite* Unite::getUnite(int ind)
+{
+	mapT::iterator it = plateau.find(ind);
+	return it->second;
 }
 
-void Unite::action3() {
-	
+void Unite::setUnite(int ind, Unite *u)
+{
+	plateau[ind] = u;
 }

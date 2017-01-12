@@ -1,6 +1,7 @@
 
 #include "SuperSoldat.hpp"
 
-void SuperSoldat::attaquer() {
+void SuperSoldat::attaquer()
+{
 	
 }

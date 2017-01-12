@@ -7,16 +7,19 @@ template <typename T>
 class Singleton
 {
 	
-private:
+  private:
 	// Instance unique
 	static T *singleton;
 	
-protected:
+  protected:
 	// Constructeur/destructeur du singleton
 	Singleton () {}
-	~Singleton () { std::cout << "Destruction du singleton : jeu."<<std::endl; }
+	~Singleton ()
+	{
+		std::cout << "Destruction du singleton : jeu."<<std::endl;
+	}
 	
-public:
+  public:
 	
 	static T *getInstance ()
 	{
