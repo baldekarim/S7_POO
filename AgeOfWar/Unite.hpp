@@ -14,9 +14,13 @@ class Unite
 	int ptsVie;
 	int ptsAttaque;
 	int portee;
-	int numeroCase;
 	char sensDeplacement;
 	static bool init;
+	
+	protected:
+	int numeroCase;
+	Unite *cible;
+	bool attack;
 	
   public:
 	
@@ -37,6 +41,8 @@ class Unite
 	
 	void avancer();
 	
+	bool getEnnemi(Unite *ennemi);
+	
 	virtual void attaquer() = 0;
 	
 	bool action1();
@@ -45,12 +51,26 @@ class Unite
 	
 	virtual void action3();
 	
+	int getPtsVie(){
+		return ptsVie;
+		};
+	int getPtsAttaque(){
+		return ptsAttaque;
+	};
+	
+	int getPortee(){
+		return portee;
+	};
+	void setPtsVie(int vie);
+	
 	static Unite* getUnite(int ind);
 	
 	static void setUnite(int ind, Unite *u);
 	
 	static mapT creerMap();
 	
+	//SURCHARGE
+	friend std::ostream &operator << (std::ostream &os, const Unite &u); 
 };
 
 #endif

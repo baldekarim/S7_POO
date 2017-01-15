@@ -7,6 +7,7 @@ class SuperSoldat : public Unite
 {
 	
 	void attaquer();
+	void action3();
 	
 	std::string getClasse() const
 	{

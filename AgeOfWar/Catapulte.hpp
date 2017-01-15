@@ -5,6 +5,8 @@
 
 class Catapulte : public Unite
 {
+  protected:
+  static int position;
   public :
 	
 	Catapulte() : Unite(20, 12, 6, 4) {}
@@ -19,6 +21,7 @@ class Catapulte : public Unite
 	}
 	
 	void action2();
+	void action3();
 
 };
 

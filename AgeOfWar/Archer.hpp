@@ -5,6 +5,9 @@
 
 class Archer : public Unite
 {
+	
+  private :
+  static int position;
 
   public :
 	

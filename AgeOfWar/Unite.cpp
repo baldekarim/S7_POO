@@ -19,7 +19,10 @@ Unite::Unite(int p, int v, int a, int por) : prix(p), ptsVie(v), ptsAttaque(a), 
 bool Unite::action1()
 {
 	attaquer();
-	return true; //Pour l'instant mais il faudra renvoyer vrai si l'unité à pu attaquer
+	if(attack==true){
+	return true; //Renvoi vrai si l'unité a pu attaquer
+	}else
+	return false;
 }
 
 void Unite::action2()
@@ -30,6 +33,14 @@ void Unite::action2()
 void Unite::action3()
 {
 	
+}
+
+bool Unite::getEnnemi(Unite *ennemie)
+{
+if(this->sensDeplacement == 'd' && ennemie->sensDeplacement !='d'){
+	return true;
+	}else
+	return false;
 }
 
 void Unite::avancer()
@@ -68,4 +79,13 @@ Unite* Unite::getUnite(int ind)
 void Unite::setUnite(int ind, Unite *u)
 {
 	plateau[ind] = u;
+}
+
+void Unite::setPtsVie(int vie)
+{
+	ptsVie=vie;
+}
+
+ostream &operator << (ostream &os, const Unite &u) { 
+	return os << "Prix unite :\n" << u.prix <<" Pts Vie:\n" << u.ptsVie <<  "Pts Attaque:\n" << u.ptsAttaque << "Portee:\n" << u.portee<<endl; 
 }
