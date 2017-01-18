@@ -5,8 +5,7 @@
 
 class Catapulte : public Unite
 {
-  protected:
-  static int position;
+
   public :
 	
 	Catapulte() : Unite(20, 12, 6, 4) {}

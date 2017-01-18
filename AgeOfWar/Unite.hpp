@@ -21,6 +21,7 @@ class Unite
 	int numeroCase;
 	Unite *cible;
 	bool attack;
+	int position;
 	
   public:
 	
@@ -41,7 +42,7 @@ class Unite
 	
 	void avancer();
 	
-	bool getEnnemi(Unite *ennemi);
+	bool getEnnemi(Unite *cible);
 	
 	virtual void attaquer() = 0;
 	
@@ -58,9 +59,6 @@ class Unite
 		return ptsAttaque;
 	};
 	
-	int getPortee(){
-		return portee;
-	};
 	void setPtsVie(int vie);
 	
 	static Unite* getUnite(int ind);
