@@ -4,9 +4,9 @@ using namespace std;
 
 void SuperSoldat::attaquer()
 {
-	if(this->getEnnemi(cible) == true && cible->getUnite(this->getPortee())){
+	if(this->getEnnemi(cible) == true && cible->getUnite(this->numeroCase+1)){
 	attack=true;
-	cout << "Vous allez attaquer l'ennemi en position" << (this->getPortee()) <<endl ;
+	cout << "Vous allez attaquer l'ennemi en position" << (this->numeroCase+1) <<endl ;
 	cible->setPtsVie(cible->getPtsVie()-this->getPtsAttaque());
 	}else
 	attack=false;
