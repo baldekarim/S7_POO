@@ -3,36 +3,38 @@
 
 using namespace std;
 
+bool Joueur::modifPlateau = false;
+
 Joueur::Joueur(string n) : nom(n)
 {
 	solde = 0;
 	saBase = new Base();
-	cout<<"Bienvenu "<<nom<<" au jeu Age of War"<<endl;
+	cout<<"############# Bienvenu "<<nom<<" au jeu Age of War #############"<<endl<<endl;
 }
 
 void Joueur::resolutionActions()
 {
-	cout<<"Résolution actions  "<<nom<<endl;
-	// Résolution actions 1
+	cout<<"\tRésolution des actions des unités du joueur : "<<nom<<endl<<endl;
+    cout<<"\t\t Actions 1 : "<<endl<<endl;
 	vector<Unite*>::reverse_iterator iter;
 	for (iter = saBase->getUnites().rbegin(); iter != saBase->getUnites().rend(); iter++)
 	{
-		cout<<"Action 1 Unité  "<<nom<<endl; //
 		(*iter)->action1();
+		//modifPlateau = true;
 	}
 
-	// Résolution actions 2
+	cout<<"\t\t Actions 2 : "<<endl<<endl;
 	for(Unite *u : saBase->getUnites())
 	{
-		cout<<"Action 2 Unité  "<<nom<<endl; //
 		u->action2();
+		//modifPlateau = true;
 	}
 	
-	// Résolutin actions 3
+	cout<<"\t\t Actions 3 : "<<endl<<endl;
 	for(Unite *u : saBase->getUnites())
 	{
-		cout<<"Action 3 Unité  "<<nom<<endl; //
 		u->action3();
+		//modifPlateau = true;
 	}
 }
 
@@ -41,55 +43,52 @@ void Joueur::recruterUnite()
 {
 	if(solde <= 10)
 	{
-		cout<<"Le solde de "<<nom<<" ne lui permet pas de recruter une unité"<<endl;
+		cout<<"\tLe solde de "<<nom<<" ne lui permet pas de recruter une unité"<<endl<<endl;
 		return;
 	}
 	
-	int indiceBase;
-	if(saBase->getSens() == 'd')
-	{
-		indiceBase = 0;
-	}
-    else
-	{
-		indiceBase = 11;
-	}
+	int indiceBase = saBase->getSens() == 'd' ? 0 : 11;
+	
 	
 	if(Unite::getUnite(indiceBase) != NULL)
 	{
-		cout<<"La base de "<<nom<<" est occupée par une autre unite il faut d'abord sortir cette unité de la base avant de recruter"<<endl;
+		cout<<"\tLa base de "<<nom<<" est occupée par une autre unite il faut d'abord sortir cette unité de la base avant de recruter"<<endl<<endl;
 		return;
 	}
 	
+	strategieRecrutement(indiceBase);
+	
+	cout<<"\tLe solde actualisé de "<<nom<<" est : "<<solde<<endl<<endl;
+	modifPlateau = true;
+}
+
+void Joueur::strategieRecrutement(int indiceBase)
+{
+
+	Unite *u;
+	
 	if(solde >= 10 && solde < 12)
 	{
-		Fantassin *f = new  Fantassin();
+		u = new Fantassin();
 		solde -= 10;
-		saBase->getUnites().push_back(f);
-		Unite::setUnite(indiceBase, f);
-		f->setNumeroCase(indiceBase, saBase->getSens());
-		cout<<"Vous venez de recruter un fantassin"<<endl;
+		cout<<"\t\tVous venez de recruter un fantassin"<<endl;
 	}
 	else if (solde >= 12 && solde < 20)
 	{
-		Archer *a = new Archer();
+		u = new Archer();
 		solde -= 12;
-		saBase->getUnites().push_back(a);
-		Unite::setUnite(indiceBase, a);
-		a->setNumeroCase(indiceBase, saBase->getSens());
-		cout<<"Vous venez de recruter un archer"<<endl;
+		cout<<"\t\tVous venez de recruter un archer"<<endl;
 	}
 	else
 	{
-		Catapulte *c = new Catapulte();
+		u = new Catapulte();
 		solde -= 20;
-		saBase->getUnites().push_back(c);
-		Unite::setUnite(indiceBase, c);
-		c->setNumeroCase(indiceBase, saBase->getSens());
-		cout<<"Vous venez de recruter une catapulte"<<endl;
+		cout<<"\t\tVous venez de recruter une catapulte"<<endl;
 	}
-	
-	cout<<"Le solde actualisé de "<<nom<<" est : "<<solde<<endl;
+	saBase->getUnites().push_back(u);
+	Unite::setUnite(indiceBase, u);
+	u->setNumeroCase(indiceBase, saBase->getSens());
+	cout<<endl;
 }
 
 /*void Joueur::supprimerUnite(Unite u)
@@ -103,5 +102,6 @@ void Joueur::recruterUnite()
 		}
 		postionElement++;
 	 }
+    //modifPlateau = true;
 }
 */

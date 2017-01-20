@@ -2,8 +2,6 @@
 #ifndef Fantassin_hpp
 #define Fantassin_hpp
 #include "Unite.hpp"
-#define Unite_hpp
-#include <iostream>
 
 class Fantassin : public Unite
 {
@@ -14,13 +12,16 @@ class Fantassin : public Unite
 	
 	~Fantassin() {}
 	
-	void attaquer();
+	bool attaquer();
+	
 	void action3();
 	
  	std::string getClasse() const
 	{
 		return "Fantassin";
 	}
+	
+	Unite* ennemiAPortee();
 
 };
 

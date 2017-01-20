@@ -1,23 +1,43 @@
 
 #include "Fantassin.hpp"
+
 using namespace std;
 
-
-void Fantassin::attaquer() {
-	if(this->getEnnemi(cible) == true && cible->getUnite(this->numeroCase+1)){
-	attack=true;
-	cout << "Vous allez attaquer l'ennemi en position" << (this->numeroCase+1) <<endl ;
-	cible->setPtsVie(cible->getPtsVie()-this->getPtsAttaque());
-	cout<<"Points de vie unité touchée restants :"<< cible->getPtsVie()<<endl;
-	}else
-	attack=false;
-	cible->setPtsVie(cible->getPtsVie()-this->getPtsAttaque());
-	cout <<"Votre Fantassin ne peut pas attaquer"<<endl;
+bool Fantassin::attaquer()
+{
+	Unite* cible = ennemiAPortee();
+	if(cible == NULL)
+		return false;
+	else
+	{
+		cible->setPtsVie(cible->getPtsVie() - this->getPtsAttaque());
+		cout<<"Votre unité a attaqué une unité ennemie :"<<endl;
+		return true;
+	}
 }
 
-void Fantassin::action3(){
-	if(this->action1()){
-		cout <<"PAS D'ACTION POSSIBLE !"<<endl;
-	}else
-	this->attaquer();	
+Unite* Fantassin::ennemiAPortee()
+{
+	Unite* ennemi;
+	if(this->getSensDeplacement() == 'd')
+		ennemi = Unite::getUnite(this->numeroCase + 1);
+	else
+		ennemi = Unite::getUnite(this->numeroCase - 1);
+
+	if(this->getSensDeplacement() != ennemi->getSensDeplacement())
+		return ennemi;
+	else
+		return NULL;
+}
+
+void Fantassin::action3()
+{
+	if(this->action1Effectuee)
+	{
+		cout <<"Votre unité ne peut attaquer qu'une fois par tour car c'est un Fantassin !"<<endl;
+	}
+	else this->attaquer();
+	
+	// On réinitialise la variable action1Effectuee pour le prochain tour
+	this->action1Effectuee = false;
 }

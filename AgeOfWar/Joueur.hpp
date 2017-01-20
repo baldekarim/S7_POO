@@ -17,12 +17,14 @@ class Joueur
 	
   public :
 	
-	Joueur(std::string n);
+	Joueur(std::string);
 	
 	~Joueur()
 	{
 		delete saBase;
 	}
+	
+	static bool modifPlateau;
 	
 	std::string getNom() const
 	{
@@ -37,12 +39,14 @@ class Joueur
 	void augmenterSolde(int s)
 	{
 		solde += s;
-		std::cout<<"Le nouveau solde de "<<nom<<" est : "<<solde<<std::endl;
+		std::cout<<"Le nouveau solde de "<<nom<<" est : "<<solde<<"\n"<<std::endl;
 	}
 	
 	void recruterUnite();
 	
 	void resolutionActions();
+	
+	void strategieRecrutement(int);
 	
 	//void supprimerUnite(Unite);
 	

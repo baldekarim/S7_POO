@@ -12,13 +12,12 @@ class Jeu : public Singleton<Jeu>
   private :
 	
 	int numeroTour;
+	
 	Joueur *joueurA, *joueurB, *joueurCourant;
 	
 	static const int nbMaxTour = 8; //static const int nbMaxTour = 100;
 	
   public :
-	
-	static bool modifPlateau;
 	
 	Jeu();
 	
@@ -26,6 +25,8 @@ class Jeu : public Singleton<Jeu>
 		delete joueurA;
 		delete joueurB;
 	}
+	
+	void actionsJeu();
 	
 	void tour();
 	

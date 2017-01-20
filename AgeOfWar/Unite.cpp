@@ -12,17 +12,14 @@ Unite::Unite(int p, int v, int a, int por) : prix(p), ptsVie(v), ptsAttaque(a), 
 		init = true;
 		creerMap();
 	}
+	action1Effectuee = false;
 }
 
- // GESTION DES ACTIONS POSSIBLES
+// GESTION DES ACTIONS POSSIBLES
 
-bool Unite::action1()
+void Unite::action1()
 {
-	attaquer();
-	if(attack==true){
-	return true; //Renvoi vrai si l'unité a pu attaquer
-	}else
-	return false;
+	if(attaquer()) action1Effectuee = true;
 }
 
 void Unite::action2()
@@ -33,14 +30,6 @@ void Unite::action2()
 void Unite::action3()
 {
 	
-}
-
-bool Unite::getEnnemi(Unite *ennemie)
-{
-if(this->sensDeplacement == 'd' && ennemie->sensDeplacement !='d'){
-	return true;
-	}else
-	return false;
 }
 
 void Unite::avancer()
@@ -81,11 +70,6 @@ void Unite::setUnite(int ind, Unite *u)
 	plateau[ind] = u;
 }
 
-void Unite::setPtsVie(int vie)
-{
-	ptsVie=vie;
-}
-
-ostream &operator << (ostream &os, const Unite &u) { 
-	return os << "Prix unite :\n" << u.prix <<" Pts Vie:\n" << u.ptsVie <<  "Pts Attaque:\n" << u.ptsAttaque << "Portee:\n" << u.portee<<endl; 
+ostream &operator << (ostream &os, const Unite &u) {
+	return os << "\tType : " << u.getClasse() << "   Prix : " <<u.prix<<"\n\t\t\tPoints de Vie : " <<u.ptsVie<<"\n\t\t\tPoints d'attaque : " <<u.ptsAttaque<<"\n\t\t\tPortée maximale : "<<u.portee<< "\n\t\t\tNuméro de case : "<<u.numeroCase<<endl;
 }

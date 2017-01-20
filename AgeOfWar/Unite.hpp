@@ -7,7 +7,7 @@
 
 class Unite
 {
-	
+
   private :
 	
 	int prix;
@@ -17,11 +17,10 @@ class Unite
 	char sensDeplacement;
 	static bool init;
 	
-	protected:
+  protected :
+	
 	int numeroCase;
-	Unite *cible;
-	bool attack;
-	int position;
+	bool action1Effectuee;
 	
   public:
 	
@@ -29,7 +28,7 @@ class Unite
 	static mapT plateau;
 	
 	Unite() {}
-	Unite(int p, int v, int a, int por);
+	Unite(int, int, int, int);
 	
 	virtual ~Unite() {};
 	
@@ -40,35 +39,46 @@ class Unite
 		sensDeplacement = sens;
 	}
 	
+	int getNumeroCase() const { return numeroCase; }
+	
 	void avancer();
 	
-	bool getEnnemi(Unite *cible);
+	virtual bool attaquer() = 0;
 	
-	virtual void attaquer() = 0;
-	
-	bool action1();
+	void action1();
 	
 	void action2();
 	
 	virtual void action3();
 	
-	int getPtsVie(){
+	int getPtsVie()
+	{
 		return ptsVie;
-		};
-	int getPtsAttaque(){
+	}
+	
+	int getPtsAttaque()
+	{
 		return ptsAttaque;
-	};
+	}
 	
-	void setPtsVie(int vie);
+	char getSensDeplacement()
+	{
+		return sensDeplacement;
+	}
 	
-	static Unite* getUnite(int ind);
+	void setPtsVie(int vie)
+	{
+		ptsVie = vie;
+	}
 	
-	static void setUnite(int ind, Unite *u);
+	static Unite* getUnite(int);
+	
+	static void setUnite(int, Unite*);
 	
 	static mapT creerMap();
 	
-	//SURCHARGE
-	friend std::ostream &operator << (std::ostream &os, const Unite &u); 
+	friend std::ostream &operator << (std::ostream &os, const Unite &u);
+	
 };
 
 #endif

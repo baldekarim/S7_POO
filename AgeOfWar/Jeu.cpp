@@ -3,8 +3,6 @@
 
 using namespace std;
 
-bool Jeu::modifPlateau = false;
-
 Jeu::Jeu() : joueurA(0), joueurB(0), joueurCourant(0)
 {
 	joueurA = new Joueur("JoueurA");
@@ -14,52 +12,54 @@ Jeu::Jeu() : joueurA(0), joueurB(0), joueurCourant(0)
 	numeroTour = 1;
 }
 
+void Jeu::actionsJeu()
+{
+	cout<<"---> Au joueur : "<<joueurCourant->getNom()<<" de jouer"<<endl<<endl;
+	joueurCourant->resolutionActions();
+	joueurCourant->recruterUnite();
+}
+
 void Jeu::tour()
 {
-	cout<<" Tour "<<numeroTour<<" :"<<endl;
+	cout<<"\t////////// Tour "<<numeroTour<<" ////////// "<<endl<<endl;
+	
 	joueurA->augmenterSolde(8);
 	joueurB->augmenterSolde(8);
 	
 	joueurCourant = joueurA;
-	cout<<"Au joueur : "<<joueurCourant->getNom()<<" de jouer"<<endl;
-	joueurA->resolutionActions();
-	joueurA->recruterUnite();
-	if(modifPlateau)
-	{
-		modifPlateau = false;
-		afficheEtatPlateau();
-	}
+	
+	actionsJeu();
 	
 	joueurCourant = joueurB;
-    cout<<"Au joueur : "<<joueurCourant->getNom()<<" de jouer"<<endl;
-	joueurB->resolutionActions();
-	joueurB->recruterUnite();
-	if(modifPlateau)
-	{
-		modifPlateau = false;
-		afficheEtatPlateau();
-	}
+	
+	actionsJeu();
 	
 	numeroTour++;
+	
+	if(Joueur::modifPlateau)
+	{
+		Joueur::modifPlateau = false;
+		afficheEtatPlateau();
+	}
 }
 
 bool Jeu::finJeu()
 {
 	if(numeroTour == nbMaxTour)
 	{
-		cout<<"Nombre maximum de tour atteint sans vainqueur => Fin du jeu"<<endl;
+		cout<<"\n\tNombre maximum de tour atteint sans vainqueur => Fin du jeu\n"<<endl;
 		return true;
 	}
 	if(joueurA->getBase()->getPtsVie() <= 0)
 	{
-		cout<<"Le joueur "<<joueurB->getNom()<<" a reussi a detruire la base adverse"<<endl;
-		cout<<"Vainqueur : "<<joueurB->getNom();
+		cout<<"\n\tLe joueur "<<joueurB->getNom()<<" a reussi a detruire la base adverse"<<endl;
+		cout<<"\n\t\t\tVainqueur : "<<joueurB->getNom()<<endl<<endl;
 		return true;
 	}
 	if(joueurB->getBase()->getPtsVie() <= 0)
 	{
-		cout<<"Le joueur "<<joueurA->getNom()<<" a reussi a detruire la base adverse"<<endl;
-		cout<<"Vainqueur : "<<joueurA->getNom();
+		cout<<"\n\tLe joueur "<<joueurA->getNom()<<" a reussi a detruire la base adverse"<<endl;
+		cout<<"\n\t\t\tVainqueur : "<<joueurA->getNom()<<endl<<endl;
 		return true;
 	}
 	
@@ -68,11 +68,11 @@ bool Jeu::finJeu()
 
 void Jeu::lancerJeu()
 {
-	while (!finJeu())
+	do
 	{
 		tour();
 		
-		cout<<"Tapez la 'Entrer' du clavier pour passer au tour suivant ou la touche 'q' du pour quitter le jeu : "<<endl;
+		cout<<"Tapez la touche 'Entrer' du clavier pour passer au tour suivant ou la touche 'q' pour quitter le jeu : "<<endl;
 		char s = getchar();
 		while(s != 'q' && s != '\n') {
 			cout<<"Erreur de saisie vous devez tapez la touche 'q' ou 'Entrer'"<<endl;
@@ -80,7 +80,7 @@ void Jeu::lancerJeu()
 		}
 		if(s == 'q')
 		{
-			cout<<"Vous allez quittez le jeu "<<endl;
+			cout<<"\nVous allez quittez le jeu "<<endl;
 			return;
 		}
 		else if(s == '\n')
@@ -88,18 +88,19 @@ void Jeu::lancerJeu()
 			continue;
 		}
 	}
+	while (!finJeu());
 }
 
 void Jeu::afficheEtatPlateau() const
 {
-	cout<<"Nouvel etat du plateau après modifications : "<<endl;
-	cout<<"Numero du tour : "<<numeroTour<<endl;
-	cout<<"Unites presentes sur l'air de jeu : "<<endl;
-	/*for (int i = 0; i < 12; i++) {
-		if (plateau[i].getOccupe()) {
-			cout<<"Case numero "<<i<<" : ";
-			
-			cout<<endl; // surcharger operateur de flux de la classe unité
+	cout<<"Unités encore presentes sur l'air de jeu : \n"<<endl;
+	for (int i = 0; i < 12; i++)
+	{
+		Unite *u = Unite::getUnite(i);
+		if(u != NULL)
+		{
+			cout<<*u<<endl<<endl;
 		}
-	}*/
+
+	}
 }

@@ -5,21 +5,25 @@
 
 class Catapulte : public Unite
 {
-
+  protected:
+  static int position;
   public :
 	
 	Catapulte() : Unite(20, 12, 6, 4) {}
 	
 	~Catapulte() {}
 	
-	void attaquer();
+	bool attaquer();
 	
 	std::string getClasse()const
 	{
 		return "Catapulte";
 	}
 	
+	Unite* ennemiAPortee();
+	
 	void action2();
+	
 	void action3();
 
 };

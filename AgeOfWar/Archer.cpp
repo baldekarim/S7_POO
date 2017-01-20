@@ -3,34 +3,46 @@
 
 using namespace std;
 
-void Archer::attaquer()
+bool Archer::attaquer()
 {
-	if(this->getEnnemi(cible) == true && cible->getUnite(this->numeroCase+2)){ //Cas où c+1
-	attack=true;
-	position = this->numeroCase+1;
-	cible->setPtsVie(cible->getPtsVie()-this->getPtsAttaque());
-	cout<<"Points de vie unité touchée restants :"<< cible->getPtsVie()<<endl;
-	}else if(this->getEnnemi(cible) == true && cible->getUnite(this->numeroCase+2)){ //Cas où c+2
-	attack=true;
-	position = this->numeroCase+2;
-	cible->setPtsVie(cible->getPtsVie()- this->getPtsAttaque());
-	cout<<"Points de vie unité touchée restants :"<< cible->getPtsVie()<<endl;
-	}else if(this->getEnnemi(cible) == true && cible->getUnite(this->numeroCase+3)){ //Cas où c+3
-	attack=true;
-	position = this->numeroCase+3;
-	cible->setPtsVie(cible->getPtsVie()- this->getPtsAttaque());
-	cout<<"Points de vie unité touchée restants :"<< cible->getPtsVie()<<endl;
-	}else{
-	attack=false;
-	}
 	
-	if(attack==true)
-	cout << "Vous allez attaquer l'ennemi en position" << (this->position) <<endl ;
-	if(attack==false)
-	cout << "Vous ne pouvez pas attaquer"<<endl;
+	Unite* cible = ennemiAPortee();
+	
+	if(cible == NULL)
+		return false;
+	else
+	{
+		cible->setPtsVie(cible->getPtsVie() - this->getPtsAttaque());
+		cout<<"Votre archer a touché une cible adverse à la case "<<cible->getNumeroCase()<<endl;
+		return true;
+	}
 }
+
+/* On cherche la première unité ennemie la plus proche soit on la trouve entre les 
+   cases c+1 et c+3 dans ce cas on la renvoie soit on ne trouve pas dans ce cas on 
+   renvoie NULL
+ */
+Unite* Archer::ennemiAPortee()
+{
+	Unite* u = NULL;
+	int i = 1;
+	do
+	{
+		if(this->getSensDeplacement() == 'd')
+			u = Unite::getUnite(this->getNumeroCase() + i);
+		else
+			u = Unite::getUnite(this->getNumeroCase() - i);
+		i++;
+		if(u != NULL && this->getSensDeplacement() != u->getSensDeplacement())
+			break;
+	} while (i <= 3);
+	
+	return u;
+}
+
 
 void Archer::action3()
 {
-	cout<<"Vous ne pouvez pas effectuer de troisieme action car votre unité est un Archer"<<endl;
+	cout<<"Votre unité ne peut pas effectuer de troisième action car c'est un Archer"<<endl;
 }
+

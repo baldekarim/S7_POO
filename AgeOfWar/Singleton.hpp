@@ -16,7 +16,9 @@ class Singleton
 	Singleton () {}
 	~Singleton ()
 	{
-		std::cout << "Destruction du singleton : jeu."<<std::endl;
+		std::cout << "\t\t**************************************************"<<std::endl;
+		std::cout << "\t\t*         Destruction du singleton : jeu         *"<<std::endl;
+		std::cout << "\t\t**************************************************\n"<<std::endl;
 	}
 	
   public:
@@ -25,7 +27,9 @@ class Singleton
 	{
 		if (singleton == NULL)
 		{
-			std::cout << "Creation du singleton : jeu."<<std::endl;
+			std::cout << "\t\t**************************************************"<<std::endl;
+			std::cout << "\t\t*      Création du singleton : jeu               *"<<std::endl;
+			std::cout << "\t\t**************************************************\n"<<std::endl;
 			singleton = new T;
 		}
 		return (static_cast<T*> (singleton));

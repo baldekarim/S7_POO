@@ -6,6 +6,8 @@
 class Archer : public Unite
 {
 	
+  private :
+  static int position;
 
   public :
 	
@@ -13,7 +15,9 @@ class Archer : public Unite
 	
 	~Archer() {}
 	
-	void attaquer();
+	Unite* ennemiAPortee();
+	
+	bool attaquer();
 	
 	std::string getClasse() const
 	{
